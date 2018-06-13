@@ -18,21 +18,21 @@ apiRoutes.post('/authenticate', function(req, res, next) {
       next();
     }
 
+    var success = false;
+    var message, token;
     if (!user ||
         !(user && bcrypt.compareSync(req.body.password, user.password))) {
-      res.json({
-        success: false,
-        message: 'Authentication failed. Wrong combination of user and password.'
-      });
+        message = 'Authentication failed. Wrong combination of user and password.';
     } else {
-      var token = jwt.sign({ uid: user._id.toString() }, config.get('secret'), {
+      token = jwt.sign({ uid: user._id.toString() }, config.get('secret'), {
         expiresIn: "1d" // expires in 24 hours
       });
     }
 
     res.json({
-      success: true,
-      token: token
+      success,
+      token,
+      message
     });
   });
 });
