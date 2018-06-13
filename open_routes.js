@@ -24,6 +24,7 @@ apiRoutes.post('/authenticate', function(req, res, next) {
         !(user && bcrypt.compareSync(req.body.password, user.password))) {
         message = 'Authentication failed. Wrong combination of user and password.';
     } else {
+      success = true;
       token = jwt.sign({ uid: user._id.toString() }, config.get('secret'), {
         expiresIn: "1d" // expires in 24 hours
       });
