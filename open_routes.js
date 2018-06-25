@@ -3,7 +3,6 @@ var app = express();
 var bcrypt = require('bcrypt-nodejs');
 var User   = require('./models/user');
 var jwt    = require('jsonwebtoken');
-var config = require('config');
 
 var apiRoutes = express.Router();
 

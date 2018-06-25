@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const bp = require('body-parser');
-const config = require('config');
 const cors = require('cors');
 const mongoose    = require('mongoose');
 const bodyParser  = require('body-parser');

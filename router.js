@@ -3,7 +3,6 @@ var app = express();
 var router = new express.Router();
 var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var mongoose = require('mongoose');
-const config = require('config');
 
 router.use(require("./open_routes"));
 
