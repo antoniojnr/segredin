@@ -6,8 +6,7 @@ const mongoose    = require('mongoose');
 const bodyParser  = require('body-parser');
 const router = new express.Router();
 const PORT = process.env.PORT || 3000;
-const dburl = 'mongodb://segredin:c8a9be50b9f8e33b4983094145a5b3155fbe2c11@ds145780.mlab.com:45780/webdev-antonio';
-mongoose.connect(dburl); // connect to database
+mongoose.connect(process.env.DB_HOST); // connect to database
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
@@ -24,5 +23,6 @@ app.use(cors());
 app.use('/api', require("./router"));
 
 app.listen(PORT, "0.0.0.0", function() {
+  console.log('DB URL:' + process.env.DB_HOST);
   console.log('Listening on ' + PORT);
 });
