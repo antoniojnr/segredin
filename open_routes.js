@@ -7,7 +7,11 @@ var config = require('config');
 
 var apiRoutes = express.Router();
 
-apiRoutes.post('/authenticate', function(req, res, next) {
+apiRoutes.get('/test', function(req, res) {
+  res.send('Funciona!');
+})
+
+apiRoutes.post('/authenticate', function(req, res) {
   // find the user
   User.findOne({ username: req.body.username }, function(err, user) {
     if (err) {
@@ -15,7 +19,7 @@ apiRoutes.post('/authenticate', function(req, res, next) {
         success: false,
         details: err
       });
-      next();
+      return;
     }
 
     var success = false;
