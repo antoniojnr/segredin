@@ -3,7 +3,7 @@ var app = express();
 var bcrypt = require('bcrypt-nodejs');
 var User   = require('./models/user');
 var jwt    = require('jsonwebtoken');
-
+var secret = '97b63dc3728689e351d119fdae6bf2c35eda51dd94e8274d2b0800b118571a1ee4a2f1fc9185792e6a85cc6a30580966db044f5332d55bc09377dd2b561925b9';
 var apiRoutes = express.Router();
 
 apiRoutes.get('/test', function(req, res) {
@@ -28,7 +28,7 @@ apiRoutes.post('/authenticate', function(req, res) {
         message = 'Authentication failed. Wrong combination of user and password.';
     } else {
       success = true;
-      token = jwt.sign({ uid: user._id.toString() }, process.env.SECRET, {
+      token = jwt.sign({ uid: user._id.toString() }, secret, {
         expiresIn: "1d" // expires in 24 hours
       });
     }

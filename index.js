@@ -6,8 +6,8 @@ const mongoose    = require('mongoose');
 const bodyParser  = require('body-parser');
 const router = new express.Router();
 const PORT = process.env.PORT || 3000;
-
-mongoose.connect(process.env.DB_HOST); // connect to database
+const dburl = 'mongodb://segredin:c8a9be50b9f8e33b4983094145a5b3155fbe2c11@ds145780.mlab.com:45780/webdev-antonio';
+mongoose.connect(dburl); // connect to database
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
