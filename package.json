@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "nf start api=1"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +15,7 @@
     "config": "^1.30.0",
     "cors": "^2.8.4",
     "express": "^4.16.3",
+    "foreman": "3.0.0",
     "jsonwebtoken": "^8.2.2",
     "mongoose": "^5.1.4",
     "mongoose-paginate": "^5.0.3",

@@ -29,7 +29,7 @@ apiRoutes.post('/authenticate', function(req, res) {
         message = 'Authentication failed. Wrong combination of user and password.';
     } else {
       success = true;
-      token = jwt.sign({ uid: user._id.toString() }, config.get('secret'), {
+      token = jwt.sign({ uid: user._id.toString() }, process.env.SECRET, {
         expiresIn: "1d" // expires in 24 hours
       });
     }

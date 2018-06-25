@@ -12,8 +12,8 @@ router.use(function(req, res, next) {
 
   if (token) {
     token = token.substring("Bearer ".length);
-    
-    jwt.verify(token, config.get('secret'), function(err, decoded) {
+
+    jwt.verify(token, process.env.SECRET, function(err, decoded) {
       if (err) {
         console.log(err);
         return res.json({ success: false, message: 'Failed to authenticate token.' });

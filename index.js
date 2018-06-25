@@ -8,7 +8,7 @@ const bodyParser  = require('body-parser');
 const router = new express.Router();
 const PORT = process.env.PORT || 3000;
 
-mongoose.connect(config.get('db_host')); // connect to database
+mongoose.connect(process.env.DB_HOST); // connect to database
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
