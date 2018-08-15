@@ -89,46 +89,70 @@ routes.get('/:msgId', function(req, res, next) {
 });
 
 routes.post('', function(req, res, next) {
-
-  User.findById(req.body.to, function(err, user) {
-    if (err) {
-      res.json({
-        success: false,
-        details: err
-      });
-      next();
-    }
-
-    if (!user) {
-      res.json({
-        success: false,
-        message: "User not found."
-      });
-      next();
-    }
-
-    var newMessage = new Message({
-      from: req.uid,
-      to: req.body.to,
-      text: req.body.text
-    });
-
-    newMessage.save(function(err) {
+  if (req.body.to.id) {
+    User.findById(ObjectId(req.body.to.id), function(err, user) {
       if (err) {
         res.json({
           success: false,
           details: err
         });
-      } else {
-        res.json({
-          success: true,
-          message: {
-            id: newMessage._id
-          }
-        });
+        next();
       }
+
+      if (!user) {
+        res.json({
+          success: false,
+          message: "User not found."
+        });
+        next();
+      }
+
+      sendMessage(res, req.uid, req.body.to.id, req.body.text);
     });
-  });
+  } else if (req.body.to.username) {
+    User.findOne({ username: req.body.to.username }, function(err, user) {
+      if (err) {
+        res.json({
+          success: false,
+          details: err
+        });
+        next();
+      }
+
+      if (!user) {
+        res.json({
+          success: false,
+          message: "User not found."
+        });
+        next();
+      }
+
+      sendMessage(res, req.uid, user._id, req.body.text);
+    });
+  }
 });
 
+function sendMessage(res, from, to, text) {
+  var newMessage = new Message({
+    from,
+    to,
+    text
+  });
+
+  newMessage.save(function(err) {
+    if (err) {
+      res.json({
+        success: false,
+        details: err
+      });
+    } else {
+      res.json({
+        success: true,
+        message: {
+          id: newMessage._id
+        }
+      });
+    }
+  });
+}
 module.exports = routes;
